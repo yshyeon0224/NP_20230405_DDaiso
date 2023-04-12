@@ -26,3 +26,5 @@
    2. admin
       1. Product
       2. python manage.py createsuperuser
+   3. veiws
+      1. ProductListView
