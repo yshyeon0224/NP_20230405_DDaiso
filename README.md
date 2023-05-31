@@ -83,7 +83,7 @@
       1. ALLOWED_HOSTS = ['*'] in settings.py
    3. Server Terminal
       1. python manage.py makemigrations
-      2. python manage.py migrat
+      2. python manage.py migrate
 6. feature/bootstrap
    1. extends 'base.html'; block title, content
       1. add DIRS in TEMPLATES in settings.py
@@ -91,3 +91,7 @@
       1. add STATIC_ROOT, STATICFILES_DIRS in settings.py
    3. add Bootstrap class in .html
    4. pagination
+7. feature/FBV
+   1. FBV list_product
+   2. product/views
+   3. product/urls
