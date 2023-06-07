@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from product.forms import ProductCreationForm
+from product.forms import ProductCreationForm, ProductChangeForm
 from product.models import Product
 
 
@@ -16,6 +16,21 @@ def list_product(request):
     product_list = Product.objects.all()                  #DB에 있는 product 전체 가져오기
     context = {'product_list': product_list}                # product_list라는 키로 놓기
     return render(request, 'product/product_list.html', context)     #product/product_list.html에 보내기
+
+
+def update_product(request, pk):
+    if request.method == 'POST':
+        form = ProductChangeForm(request.POST)    #form에 있는 내용 가져오기
+        if form.is_valid():    #form 검사
+            selected_product = Product.objects.get(pk=pk)    #pk로 product에서 하나 꺼내기
+            selected_product.name = form.cleaned_data.get('name')    #입력한 내용으로 product 수정
+            selected_product.price = form.cleaned_data.get('price')
+            selected_product.save()#product 저장
+        return redirect('product:detail2', pk=pk)
+    else:  # 처음에 선택한 내용을 폼으로 보여주기
+        seleted_product = Product.objects.get(pk=pk)     # pk로 product 에서 하나 꺼내기
+        form = ProductChangeForm(instance=seleted_product)    # form에 표시
+    return render(request, 'product/product_update.html', {'form':form})
 
 
 class ProductDetailView(DetailView):
