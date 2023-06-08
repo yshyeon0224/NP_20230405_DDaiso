@@ -121,4 +121,8 @@
       ```python
       urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
       ```
-      3. python
+      3. python -m pip install pillow in Terminal
+   2. models ImageField(upload_to=)
+      1. product/models
+      2. python manage.py makemigrations product
+      3. python manage.py migrate product
