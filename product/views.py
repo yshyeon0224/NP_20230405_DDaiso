@@ -19,13 +19,15 @@ def list_product(request):
 
 
 def update_product(request, pk):
+    product = Product.objects.get(pk=pk)   #pk로 Product에서 하나 가져옴
     if request.method == 'POST':
-        form = ProductChangeForm(request.POST)    #form에 있는 내용 가져오기
+        form = ProductChangeForm(request.POST, request.FILES, instance=product)    #form에 있는 내용 가져오기
         if form.is_valid():    #form 검사
-            selected_product = Product.objects.get(pk=pk)    #pk로 product에서 하나 꺼내기
-            selected_product.name = form.cleaned_data.get('name')    #입력한 내용으로 product 수정
-            selected_product.price = form.cleaned_data.get('price')
-            selected_product.save()#product 저장
+            # selected_product = Product.objects.get(pk=pk)    #pk로 product에서 하나 꺼내기
+            # selected_product.name = form.cleaned_data.get('name')    #입력한 내용으로 product 수정
+            # selected_product.price = form.cleaned_data.get('price')
+            # selected_product.save()#product 저장
+            form.save()
         return redirect('product:detail2', pk=pk)
     else:  # 처음에 선택한 내용을 폼으로 보여주기
         seleted_product = Product.objects.get(pk=pk)     # pk로 product 에서 하나 꺼내기
